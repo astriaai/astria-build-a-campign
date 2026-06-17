@@ -1,0 +1,8 @@
+.DS_Store
+tmp/
+outputs/
+extracted_slides_images/
+videos/
+__pycache__/
+*.pyc
+

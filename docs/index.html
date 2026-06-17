@@ -1,0 +1,1466 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Astria Ecommerce Campaigns and Lookbooks</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0a0a0a;
+        --surface: #111;
+        --card: #181818;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-strong: rgba(255, 255, 255, 0.16);
+        --white: #fff;
+        --off: rgba(255, 255, 255, 0.64);
+        --dim: rgba(255, 255, 255, 0.38);
+        --ink: #0a0a0a;
+        --paper: #f2f2f2;
+        --accent: #11a9ad;
+        --sans: Helvetica, Arial, sans-serif;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --slide-shadow: 0 22px 60px rgba(0, 0, 0, 0.42);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--white);
+        font-family: var(--sans);
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      button,
+      a {
+        font: inherit;
+      }
+
+      .deck {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+        padding: clamp(16px, 3vw, 40px);
+      }
+
+      .slide {
+        position: absolute;
+        width: min(100vw - 32px, calc((100vh - 96px) * 16 / 9));
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(24px) scale(0.985);
+        transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+        background: var(--bg);
+        box-shadow: var(--slide-shadow);
+      }
+
+      .slide.is-active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0) scale(1);
+        z-index: 2;
+      }
+
+      .slide-inner {
+        position: relative;
+        display: grid;
+        width: 100%;
+        height: 100%;
+        padding: 6.5%;
+      }
+
+      .slide-light {
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .slide-dark {
+        background:
+          radial-gradient(ellipse 70% 48% at 84% 18%, rgba(255, 255, 255, 0.055), transparent 62%),
+          linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+        color: var(--white);
+      }
+
+      .slide-surface {
+        background: var(--surface);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 28px;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--dim);
+        font-weight: 500;
+      }
+
+      .slide-light .eyebrow {
+        color: rgba(0, 0, 0, 0.45);
+      }
+
+      .eyebrow::before {
+        content: "";
+        flex: 0 0 44px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.5;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      ol,
+      ul {
+        margin: 0;
+      }
+
+      .hero-title {
+        max-width: 660px;
+        font-size: clamp(38px, 5.5vw, 74px);
+        font-weight: 200;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+      }
+
+      .hero-title strong {
+        display: block;
+        font-weight: 800;
+      }
+
+      .hero-title em {
+        font-style: italic;
+      }
+
+      .hero-cover {
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+        align-items: center;
+        gap: 6%;
+      }
+
+      .hero-copy {
+        display: grid;
+        align-content: center;
+        gap: 28px;
+      }
+
+      .hero-copy .kicker {
+        max-width: 390px;
+      }
+
+      .hero-contact {
+        display: inline-grid;
+        grid-template-columns: 94px minmax(0, 1fr);
+        gap: 18px;
+        align-items: center;
+        max-width: 430px;
+        margin-top: 10px;
+      }
+
+      .hero-qr {
+        display: block;
+        width: 94px;
+        height: 94px;
+        padding: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.14);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .hero-contact-text {
+        display: grid;
+        gap: 6px;
+        color: rgba(0, 0, 0, 0.64);
+        font-size: clamp(14px, 1.2vw, 17px);
+        line-height: 1.25;
+      }
+
+      .hero-contact-text strong {
+        color: var(--ink);
+        font-size: clamp(16px, 1.45vw, 20px);
+        font-weight: 700;
+      }
+
+      .hero-contact-text a {
+        color: #0f7f84;
+        text-decoration: none;
+      }
+
+      .hero-video {
+        aspect-ratio: 3 / 4;
+        width: min(42%, 410px);
+        height: auto;
+        align-self: center;
+        justify-self: center;
+        border-radius: 8px;
+        background: #101010;
+      }
+
+      .hero-video video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .section-title {
+        font-size: clamp(32px, 4.2vw, 56px);
+        font-weight: 300;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+      }
+
+      .section-title strong {
+        font-weight: 760;
+      }
+
+      .kicker {
+        max-width: 560px;
+        color: var(--off);
+        font-size: clamp(16px, 1.6vw, 22px);
+        line-height: 1.58;
+      }
+
+      .slide-light .kicker {
+        color: rgba(0, 0, 0, 0.56);
+      }
+
+      .split {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        align-items: center;
+        gap: 7%;
+      }
+
+      .split-even {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .center {
+        place-items: center;
+        text-align: center;
+      }
+
+      .problem-list,
+      .process-list {
+        display: grid;
+        gap: 18px;
+        padding: 0;
+        list-style: none;
+        counter-reset: item;
+      }
+
+      .problem-list li,
+      .process-list li {
+        position: relative;
+        display: grid;
+        grid-template-columns: 42px minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+        padding-top: 18px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        color: rgba(0, 0, 0, 0.68);
+        font-size: clamp(18px, 2vw, 25px);
+        line-height: 1.32;
+      }
+
+      .process-list li {
+        border-color: var(--border);
+        color: var(--off);
+        font-size: clamp(15px, 1.55vw, 21px);
+      }
+
+      .problem-list li::before,
+      .process-list li::before {
+        counter-increment: item;
+        content: counter(item, decimal-leading-zero);
+        color: rgba(0, 0, 0, 0.38);
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        line-height: 1.9;
+      }
+
+      .process-list li::before {
+        color: var(--dim);
+      }
+
+      .media-frame {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        background: #141414;
+      }
+
+      .media-frame img,
+      .media-frame video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .video-poster-fallback {
+        display: none;
+      }
+
+      .fit-contain img {
+        object-fit: contain;
+      }
+
+      .portrait {
+        height: 88%;
+        justify-self: center;
+        align-self: center;
+        background: transparent;
+      }
+
+      .portrait img {
+        object-fit: contain;
+        background: transparent;
+      }
+
+      .partner-layout {
+        grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+        align-items: center;
+        gap: 6%;
+      }
+
+      .partner-copy {
+        display: grid;
+        align-content: center;
+        gap: 26px;
+      }
+
+      .partner-name {
+        font-size: clamp(36px, 4.8vw, 66px);
+        font-weight: 760;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+      }
+
+      .partner-subtitle {
+        color: rgba(0, 0, 0, 0.64);
+        font-size: clamp(22px, 2.25vw, 32px);
+        font-weight: 420;
+        line-height: 1.18;
+        letter-spacing: -0.02em;
+      }
+
+      .partner-tag {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px 9px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--white);
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .partner-link {
+        color: #0f9fa6;
+        font-size: clamp(18px, 1.65vw, 23px);
+        line-height: 1.2;
+        text-decoration: underline;
+        text-underline-offset: 5px;
+      }
+
+      .partner-visual {
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        height: auto;
+        align-self: center;
+        border-radius: 8px;
+        background: #e7e3dc;
+      }
+
+      .partner-visual img {
+        object-fit: cover;
+      }
+
+      .solution-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 3px;
+        align-self: end;
+      }
+
+      .solution-subtitle {
+        max-width: 680px;
+        margin-top: 18px;
+        color: var(--off);
+        font-size: clamp(18px, 1.65vw, 23px);
+        line-height: 1.55;
+      }
+
+      .steps-block {
+        align-self: end;
+        display: grid;
+        gap: 16px;
+      }
+
+      .steps-label {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 14px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .steps-label::after {
+        content: "";
+        height: 1px;
+        flex: 1;
+        background: rgba(255, 255, 255, 0.36);
+      }
+
+      .solution-card {
+        min-height: 208px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 22px;
+        padding: 22px;
+        background: rgba(255, 255, 255, 0.075);
+        border: 0;
+        box-shadow: none;
+      }
+
+      .solution-card span {
+        color: rgba(255, 255, 255, 0.68);
+        font-family: var(--mono);
+        font-size: 15px;
+        letter-spacing: 0.12em;
+      }
+
+      .solution-card h3 {
+        font-size: clamp(23px, 2.25vw, 32px);
+        font-weight: 440;
+        line-height: 1.22;
+        letter-spacing: -0.015em;
+      }
+
+      .solution-card p {
+        margin-top: 10px;
+        max-width: 95%;
+        color: rgba(255, 255, 255, 0.76);
+        font-size: clamp(16px, 1.35vw, 19px);
+        line-height: 1.45;
+      }
+
+      .catalog-layout {
+        grid-template-columns: 0.95fr 1.45fr;
+        gap: 34px;
+        align-items: end;
+      }
+
+      .catalog-panel {
+        display: grid;
+        grid-template-columns: 0.78fr 1fr;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .catalog-products {
+        display: grid;
+        gap: 10px;
+      }
+
+      .catalog-strip {
+        height: 138px;
+        padding: 10px;
+        background: #f2f2f2;
+      }
+
+      .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .avatar-card {
+        position: relative;
+        height: 150px;
+        overflow: hidden;
+        background: #e8e8e8;
+      }
+
+      .avatar-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .avatar-card span {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 5px 9px 6px;
+        border: 1px solid rgba(255, 255, 255, 0.46);
+        border-radius: 999px;
+        background: rgba(10, 10, 10, 0.34);
+        color: rgba(255, 255, 255, 0.88);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.04em;
+      }
+
+      .stacked-shots {
+        display: grid;
+        gap: 10px;
+        align-self: center;
+      }
+
+      .shot {
+        height: 142px;
+        border-radius: 8px;
+        background: #eee;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .shot img {
+        object-fit: contain;
+        background: #f6f4f1;
+      }
+
+      .workspace-link {
+        color: #0f9fa6;
+        font-size: clamp(20px, 2.1vw, 28px);
+        text-decoration: underline;
+        text-underline-offset: 5px;
+      }
+
+      .automation-grid {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 24px;
+        align-items: center;
+      }
+
+      .automation-visuals {
+        position: relative;
+        height: 430px;
+      }
+
+      .automation-visuals .media-frame {
+        overflow: visible;
+        background: #f6f4ef;
+      }
+
+      .automation-visuals .media-frame img {
+        overflow: hidden;
+        border-radius: inherit;
+      }
+
+      .automation-panel--main {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 68%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .automation-panel--inset {
+        position: absolute;
+        left: 0;
+        bottom: 34px;
+        width: 44%;
+        height: 190px;
+        z-index: 3;
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+      }
+
+      .visual-label {
+        position: absolute;
+        top: -34px;
+        left: 10px;
+        z-index: 2;
+        padding: 6px 10px 7px;
+        border-radius: 999px;
+        background: rgba(10, 10, 10, 0.48);
+        color: rgba(255, 255, 255, 0.92);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .has-stepper {
+        padding-top: 9.2%;
+      }
+
+      .stepper {
+        position: absolute;
+        top: 5%;
+        left: 6.5%;
+        right: 6.5%;
+        z-index: 6;
+        display: flex;
+        justify-content: flex-end;
+        gap: 7px;
+        pointer-events: none;
+      }
+
+      .stepper-step {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        min-width: 108px;
+        padding: 7px 10px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: rgba(0, 0, 0, 0.56);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        font-size: clamp(10px, 0.92vw, 12px);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .stepper-index {
+        display: inline-grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.08);
+        color: rgba(0, 0, 0, 0.62);
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .stepper-step.is-active {
+        background: var(--ink);
+        color: var(--white);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+      }
+
+      .stepper-step.is-active .stepper-index {
+        background: var(--accent);
+        color: var(--white);
+      }
+
+      .slide-dark .stepper-step,
+      .slide-surface .stepper-step {
+        background: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.64);
+        box-shadow: none;
+      }
+
+      .slide-dark .stepper-index,
+      .slide-surface .stepper-index {
+        background: rgba(255, 255, 255, 0.14);
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .slide-dark .stepper-step.is-active,
+      .slide-surface .stepper-step.is-active {
+        background: var(--white);
+        color: var(--ink);
+      }
+
+      .slide-dark .stepper-step.is-active .stepper-index,
+      .slide-surface .stepper-step.is-active .stepper-index {
+        background: var(--accent);
+        color: var(--white);
+      }
+
+      .compounding-layout {
+        grid-template-rows: auto 1fr;
+        gap: 42px;
+      }
+
+      .compound-subtitle {
+        max-width: 760px;
+        margin-top: 18px;
+        color: var(--off);
+        font-size: clamp(18px, 1.65vw, 23px);
+        line-height: 1.55;
+      }
+
+      .compound-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        align-items: end;
+      }
+
+      .compound-card {
+        height: 305px;
+        border-radius: 9px;
+        background: #f3f3f3;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .compound-card img {
+        object-fit: cover;
+      }
+
+      .campaign-frame {
+        align-self: center;
+        height: 68%;
+        background: #000;
+      }
+
+      .campaign-frame img {
+        object-fit: cover;
+      }
+
+      .campaign-frame video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #000;
+      }
+
+      .video-fullscreen {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 3;
+        border: 0;
+        border-radius: 999px;
+        padding: 7px 11px 8px;
+        background: rgba(10, 10, 10, 0.58);
+        color: rgba(255, 255, 255, 0.94);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .video-fullscreen:hover,
+      .video-fullscreen:focus-visible {
+        outline: none;
+        background: rgba(10, 10, 10, 0.78);
+      }
+
+      .video-slide video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background: #000;
+      }
+
+      @media print {
+        video,
+        .video-fullscreen {
+          display: none !important;
+        }
+
+        .video-poster-fallback {
+          position: absolute;
+          inset: 0;
+          display: block !important;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .closing-layout {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        align-items: center;
+        gap: 5%;
+      }
+
+      .closing-copy {
+        display: grid;
+        gap: 26px;
+        align-content: center;
+      }
+
+      .thanks-layout {
+        place-items: center;
+        text-align: center;
+      }
+
+      .thanks-stack {
+        display: grid;
+        justify-items: center;
+        gap: 42px;
+      }
+
+      .thanks-stack .hero-contact {
+        margin-top: 0;
+        text-align: left;
+      }
+
+      .thanks-question {
+        color: rgba(0, 0, 0, 0.56);
+        font-size: clamp(24px, 2.7vw, 38px);
+        font-weight: 420;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .closing-title {
+        font-size: clamp(54px, 7vw, 94px);
+        font-weight: 760;
+        line-height: 0.94;
+        letter-spacing: -0.035em;
+      }
+
+      .closing-link {
+        color: #0f9fa6;
+        font-size: clamp(18px, 1.8vw, 25px);
+        line-height: 1.2;
+        text-decoration: underline;
+        text-underline-offset: 6px;
+      }
+
+      .packshot-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .packshot-tile {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        border-radius: 8px;
+        background: #ece8df;
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+      }
+
+      .packshot-tile video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .packshot-tile span {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        padding: 6px 9px 7px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        color: rgba(0, 0, 0, 0.74);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        font-family: var(--mono);
+        font-size: 10px;
+        line-height: 1;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .controls {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        border-radius: 8px;
+        background: rgba(20, 20, 20, 0.78);
+        color: var(--white);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+      }
+
+      .controls button {
+        display: inline-grid;
+        place-items: center;
+        width: 36px;
+        height: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        color: inherit;
+        cursor: pointer;
+      }
+
+      .controls button:hover,
+      .controls button:focus-visible {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.42);
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .counter {
+        min-width: 54px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 13px;
+        line-height: 1;
+      }
+
+      .progress {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 11;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .progress span {
+        display: block;
+        width: 10%;
+        height: 100%;
+        background: var(--accent);
+        transition: width 180ms ease;
+      }
+
+      @media (max-width: 900px) {
+        body {
+          overflow: auto;
+        }
+
+        .deck {
+          display: block;
+          min-height: auto;
+          padding: 0;
+        }
+
+        .slide {
+          position: relative;
+          width: 100vw;
+          min-height: 100vh;
+          aspect-ratio: auto;
+          opacity: 1;
+          visibility: visible;
+          transform: none;
+          box-shadow: none;
+          display: none;
+        }
+
+        .slide.is-active {
+          display: block;
+        }
+
+        .slide-inner,
+        .split,
+        .hero-cover,
+        .partner-layout,
+        .catalog-layout,
+        .automation-grid,
+        .closing-layout {
+          min-height: 100vh;
+          grid-template-columns: 1fr;
+          align-content: center;
+          gap: 28px;
+          padding: 72px 22px 96px;
+        }
+
+        .has-stepper {
+          padding-top: 130px;
+        }
+
+        .stepper {
+          top: 22px;
+          left: 22px;
+          right: 22px;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 7px;
+        }
+
+        .stepper-step {
+          min-width: 0;
+          justify-content: flex-start;
+        }
+
+        .solution-grid,
+        .compound-row,
+        .avatar-grid,
+        .automation-visuals,
+        .catalog-panel,
+        .packshot-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .solution-card,
+        .avatar-card,
+        .hero-video,
+        .partner-visual,
+        .automation-visuals .media-frame,
+        .compound-card,
+        .shot,
+        .catalog-strip,
+        .campaign-frame {
+          height: auto;
+          min-height: 180px;
+        }
+
+        .automation-visuals {
+          display: grid;
+          height: auto;
+          gap: 12px;
+        }
+
+        .automation-panel--main,
+        .automation-panel--inset {
+          position: relative;
+          inset: auto;
+          width: 100%;
+          height: auto;
+          box-shadow: none;
+        }
+
+        .controls {
+          right: 10px;
+          bottom: 14px;
+        }
+
+        .hero-contact {
+          grid-template-columns: 82px minmax(0, 1fr);
+          max-width: 100%;
+        }
+
+        .hero-qr {
+          width: 82px;
+          height: 82px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="deck" aria-label="Astria HTML presentation">
+      <section class="slide slide-light is-active" aria-label="Slide 1">
+        <div class="slide-inner hero-cover">
+          <div class="hero-copy">
+            <div class="eyebrow">AI-powered ecommerce</div>
+            <h1 class="hero-title">
+              Astria
+              <strong>Campaigns and lookbooks</strong>
+            </h1>
+            <p class="kicker">Making AI work with teams.</p>
+            <div class="hero-contact" aria-label="Contact and ecommerce link">
+              <img class="hero-qr" src="assets/astria-ecommerce-qr.svg" alt="QR code for https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_1_cover">
+              <p class="hero-contact-text">
+                <strong>Alon Burg</strong>
+                <a href="mailto:alon@astria.ai">alon@astria.ai</a>
+                <a href="https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_1_cover">astria.ai/ecommerce</a>
+              </p>
+            </div>
+          </div>
+          <div class="media-frame hero-video">
+            <video src="assets/video/mother-of-all-lookbook-muted.mp4" poster="assets/video/posters/mother-of-all-lookbook-muted.jpg" autoplay muted loop playsinline preload="metadata"></video>
+            <img class="video-poster-fallback" src="assets/video/posters/mother-of-all-lookbook-muted.jpg" alt="" aria-hidden="true">
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-light" aria-label="Slide 2">
+        <div class="slide-inner split">
+          <div>
+            <div class="eyebrow">The problem</div>
+            <h2 class="section-title"><strong>AI</strong> doesn't work</h2>
+            <ol class="problem-list" aria-label="AI workflow problems">
+              <li>It doesn't remember.</li>
+              <li>Every day starts a new.</li>
+              <li>It's our role to make it work.</li>
+            </ol>
+          </div>
+          <div class="media-frame portrait">
+            <img src="assets/source-media/image5.png" alt="Fashion model in a burgundy look">
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-light" aria-label="Slide 3">
+        <div class="slide-inner partner-layout">
+          <div class="partner-copy">
+            <div class="eyebrow">Creative partners</div>
+            <h2 class="partner-name">CI898</h2>
+            <p class="partner-subtitle">Shai Yehezkel + Miki Turgeman</p>
+            <p class="kicker">Creatives translate brand identity with a professional eye, keeping humans in the loop where taste matters.</p>
+          </div>
+          <div class="media-frame partner-visual">
+            <img src="assets/source-media/ci898-partner.jpg" alt="CI898 creative partner visual">
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-dark" aria-label="Slide 4">
+        <div class="slide-inner">
+          <div>
+            <div class="eyebrow">The solution</div>
+            <h2 class="section-title">A collaborative visual system</h2>
+            <p class="solution-subtitle">A repeatable workflow for teams and agents.</p>
+          </div>
+          <div class="steps-block">
+            <div class="steps-label">Steps</div>
+            <div class="solution-grid">
+              <article class="solution-card">
+                <span>01</span>
+                <div>
+                  <h3>Collect materials</h3>
+                  <p>Products, avatars, brand rules, and brief.</p>
+                </div>
+              </article>
+              <article class="solution-card">
+                <span>02</span>
+                <div>
+                  <h3>Skills &amp; templates</h3>
+                  <p>Creative directors shape reusable visual recipes.</p>
+                </div>
+              </article>
+              <article class="solution-card">
+                <span>03</span>
+                <div>
+                  <h3>Scale with agents</h3>
+                  <p>Agents retrieve inputs, plan looks, run, and iterate.</p>
+                </div>
+              </article>
+              <article class="solution-card">
+                <span>04</span>
+                <div>
+                  <h3>Campaign output</h3>
+                  <p>Lookbooks, social media, ads, and video assets.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-surface" aria-label="Slide 5">
+        <div class="slide-inner catalog-layout has-stepper">
+          <nav class="stepper" aria-label="Workflow steps">
+            <span class="stepper-step is-active" aria-current="step"><span class="stepper-index">01</span>Materials</span>
+            <span class="stepper-step"><span class="stepper-index">02</span>Templates</span>
+            <span class="stepper-step"><span class="stepper-index">03</span>Agents</span>
+            <span class="stepper-step"><span class="stepper-index">04</span>Campaigns</span>
+          </nav>
+          <div>
+            <div class="eyebrow">01</div>
+            <h2 class="section-title">Product catalog + <strong>Avatars</strong></h2>
+          </div>
+          <div class="catalog-panel">
+            <div class="catalog-products">
+              <div class="media-frame catalog-strip fit-contain">
+                <img src="assets/source-media/image18.png" alt="T-shirt product catalog grid">
+              </div>
+              <div class="media-frame catalog-strip fit-contain">
+                <img src="assets/source-media/image8.png" alt="Pants product catalog grid">
+              </div>
+            </div>
+            <div class="avatar-grid">
+              <div class="avatar-card">
+                <img src="assets/source-media/image6.png" alt="Mateo avatar">
+                <span>Mateo</span>
+              </div>
+              <div class="avatar-card">
+                <img src="assets/source-media/image13.png" alt="Jacob avatar">
+                <span>Jacob</span>
+              </div>
+              <div class="avatar-card">
+                <img src="assets/source-media/image9.png" alt="David avatar">
+                <span>David</span>
+              </div>
+              <div class="avatar-card">
+                <img src="assets/source-media/image4.png" alt="Rafael avatar">
+                <span>Rafael</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-light" aria-label="Slide 6">
+        <div class="slide-inner split-even has-stepper">
+          <nav class="stepper" aria-label="Workflow steps">
+            <span class="stepper-step"><span class="stepper-index">01</span>Materials</span>
+            <span class="stepper-step is-active" aria-current="step"><span class="stepper-index">02</span>Templates</span>
+            <span class="stepper-step"><span class="stepper-index">03</span>Agents</span>
+            <span class="stepper-step"><span class="stepper-index">04</span>Campaigns</span>
+          </nav>
+          <div>
+            <div class="eyebrow">02</div>
+            <h2 class="section-title">Create the <strong>templates</strong></h2>
+            <ol class="problem-list">
+              <li>Teach the AI what we want and iterate.</li>
+              <li>Creative process driven by professionals: creative directors and photographers.</li>
+            </ol>
+          </div>
+          <div class="stacked-shots">
+            <div class="media-frame shot fit-contain"><img src="assets/source-media/image14.png" alt="Template output row"></div>
+            <div class="media-frame shot fit-contain"><img src="assets/source-media/image7.png" alt="Template output row"></div>
+            <div class="media-frame shot fit-contain"><img src="assets/source-media/image12.png" alt="Template output row"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-dark" aria-label="Slide 7">
+        <div class="slide-inner center">
+          <div>
+            <div class="eyebrow">Workspace</div>
+            <h2 class="section-title">A live workspace for reusable visual systems</h2>
+            <p class="kicker" style="margin: 26px auto 0;">Templates, references, requirements, and production output stay in one shared context.</p>
+            <p style="margin-top: 42px;">
+              <a class="workspace-link" href="https://www.astria.ai/w">https://www.astria.ai/w</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-light" aria-label="Slide 8">
+        <div class="slide-inner automation-grid has-stepper">
+          <nav class="stepper" aria-label="Workflow steps">
+            <span class="stepper-step"><span class="stepper-index">01</span>Materials</span>
+            <span class="stepper-step"><span class="stepper-index">02</span>Templates</span>
+            <span class="stepper-step is-active" aria-current="step"><span class="stepper-index">03</span>Agents</span>
+            <span class="stepper-step"><span class="stepper-index">04</span>Campaigns</span>
+          </nav>
+          <div>
+            <div class="eyebrow">03</div>
+            <h2 class="section-title">Scale with <strong>agents</strong></h2>
+            <ol class="problem-list">
+              <li>Pull new collection inputs from Google Drive + Shopify.</li>
+              <li>Plan styling combinations.</li>
+              <li>Generate, review, iterate.</li>
+            </ol>
+          </div>
+          <div class="automation-visuals">
+            <div class="media-frame fit-contain automation-panel--main">
+              <span class="visual-label">Inspect bulk runs</span>
+              <img src="assets/source-media/image2.png" alt="Generated collection results">
+            </div>
+            <div class="media-frame fit-contain automation-panel--inset">
+              <span class="visual-label">Plan styling</span>
+              <img src="assets/source-media/image16.png" alt="Agent workflow planning rows">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-dark" aria-label="Slide 9">
+        <div class="slide-inner compounding-layout has-stepper">
+          <nav class="stepper" aria-label="Workflow steps">
+            <span class="stepper-step"><span class="stepper-index">01</span>Materials</span>
+            <span class="stepper-step"><span class="stepper-index">02</span>Templates</span>
+            <span class="stepper-step"><span class="stepper-index">03</span>Agents</span>
+            <span class="stepper-step is-active" aria-current="step"><span class="stepper-index">04</span>Campaigns</span>
+          </nav>
+          <div>
+            <div class="eyebrow">04 · Campaigns</div>
+            <h2 class="section-title">Compounding <strong>system</strong></h2>
+            <p class="compound-subtitle">This is where the lookbook work pays off: characters, products, and looks can be recombined into beautiful new scenes.</p>
+          </div>
+          <div class="compound-row">
+            <div class="media-frame compound-card fit-contain"><img src="assets/source-media/image11.png" alt="Look result 1"></div>
+            <div class="media-frame compound-card fit-contain"><img src="assets/source-media/image10.png" alt="Look result 2"></div>
+            <div class="media-frame compound-card fit-contain"><img src="assets/source-media/image15.png" alt="Look result 3"></div>
+            <div class="media-frame compound-card fit-contain"><img src="assets/source-media/image17.png" alt="Look result 4"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide video-slide" aria-label="Slide 10 video">
+        <video src="assets/video/noizz-campign.mp4" poster="assets/video/posters/noizz-campign.jpg" controls playsinline preload="metadata"></video>
+        <img class="video-poster-fallback" src="assets/video/posters/noizz-campign.jpg" alt="" aria-hidden="true">
+      </section>
+
+      <section class="slide slide-light" aria-label="Slide 11">
+        <div class="slide-inner split has-stepper">
+          <nav class="stepper" aria-label="Workflow steps">
+            <span class="stepper-step"><span class="stepper-index">01</span>Materials</span>
+            <span class="stepper-step"><span class="stepper-index">02</span>Templates</span>
+            <span class="stepper-step"><span class="stepper-index">03</span>Agents</span>
+            <span class="stepper-step is-active" aria-current="step"><span class="stepper-index">04</span>Campaigns</span>
+          </nav>
+          <div>
+            <div class="eyebrow">04</div>
+            <h2 class="section-title">Campaigns and <strong>social media</strong></h2>
+            <p class="kicker">The same system can become campaign content, social posts, and launch assets without restarting from a blank prompt.</p>
+          </div>
+          <div class="media-frame campaign-frame">
+            <video src="assets/video/sacks.mp4" poster="assets/video/posters/sacks.jpg" controls playsinline preload="metadata"></video>
+            <img class="video-poster-fallback" src="assets/video/posters/sacks.jpg" alt="" aria-hidden="true">
+            <button class="video-fullscreen" type="button" data-video-fullscreen>Full screen</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide-light" aria-label="Slide 12">
+        <div class="slide-inner closing-layout">
+          <div class="thanks-stack">
+            <h2 class="closing-title">Thank you</h2>
+            <p class="thanks-question">Questions?</p>
+            <div class="hero-contact" aria-label="Contact">
+              <img class="hero-qr" src="assets/astria-ecommerce-qr-closing.svg" alt="QR code for https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_11_closing">
+              <p class="hero-contact-text">
+                <strong>Alon Burg</strong>
+                <a href="mailto:alon@astria.ai">alon@astria.ai</a>
+                <a href="https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_11_closing">astria.ai/ecommerce</a>
+              </p>
+            </div>
+          </div>
+          <div class="packshot-grid" aria-label="Video examples">
+            <div class="packshot-tile">
+              <video src="assets/video/packshots/packshot-01-swimsuit.mp4" poster="assets/video/posters/packshot-01-swimsuit.jpg" autoplay muted loop playsinline preload="metadata"></video>
+              <img class="video-poster-fallback" src="assets/video/posters/packshot-01-swimsuit.jpg" alt="" aria-hidden="true">
+              <span>Swimwear</span>
+            </div>
+            <div class="packshot-tile">
+              <video src="assets/video/packshots/packshot-02-dress.mp4" poster="assets/video/posters/packshot-02-dress.jpg" autoplay muted loop playsinline preload="metadata"></video>
+              <img class="video-poster-fallback" src="assets/video/posters/packshot-02-dress.jpg" alt="" aria-hidden="true">
+              <span>Dress</span>
+            </div>
+            <div class="packshot-tile">
+              <video src="assets/video/packshots/packshot-03-shirts.mp4" poster="assets/video/posters/packshot-03-shirts.jpg" autoplay muted loop playsinline preload="metadata"></video>
+              <img class="video-poster-fallback" src="assets/video/posters/packshot-03-shirts.jpg" alt="" aria-hidden="true">
+              <span>Shirts</span>
+            </div>
+            <div class="packshot-tile">
+              <video src="assets/video/packshots/packshot-04-pants-skirts.mp4" poster="assets/video/posters/packshot-04-pants-skirts.jpg" autoplay muted loop playsinline preload="metadata"></video>
+              <img class="video-poster-fallback" src="assets/video/posters/packshot-04-pants-skirts.jpg" alt="" aria-hidden="true">
+              <span>Bottoms</span>
+            </div>
+            <div class="packshot-tile">
+              <video src="assets/video/packshots/packshot-05-lingerie.mp4" poster="assets/video/posters/packshot-05-lingerie.jpg" autoplay muted loop playsinline preload="metadata"></video>
+              <img class="video-poster-fallback" src="assets/video/posters/packshot-05-lingerie.jpg" alt="" aria-hidden="true">
+              <span>Lingerie</span>
+            </div>
+            <div class="packshot-tile">
+              <video src="assets/video/packshots/packshot-06-shoes.mp4" poster="assets/video/posters/packshot-06-shoes.jpg" autoplay muted loop playsinline preload="metadata"></video>
+              <img class="video-poster-fallback" src="assets/video/posters/packshot-06-shoes.jpg" alt="" aria-hidden="true">
+              <span>Shoes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="controls" aria-label="Presentation controls">
+      <button type="button" data-action="prev" aria-label="Previous slide" title="Previous slide">&#8592;</button>
+      <span class="counter" aria-live="polite">1 / 12</span>
+      <button type="button" data-action="next" aria-label="Next slide" title="Next slide">&#8594;</button>
+      <button type="button" data-action="fullscreen" aria-label="Fullscreen" title="Fullscreen">&#9974;</button>
+    </nav>
+
+    <div class="progress" aria-hidden="true"><span></span></div>
+
+    <script>
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const counter = document.querySelector(".counter");
+      const progress = document.querySelector(".progress span");
+      let activeIndex = 0;
+
+      function pauseInactiveMedia() {
+        slides.forEach((slide, index) => {
+          if (index === activeIndex) return;
+          slide.querySelectorAll("video, audio").forEach((media) => media.pause());
+        });
+      }
+
+      function showSlide(index) {
+        activeIndex = Math.max(0, Math.min(slides.length - 1, index));
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle("is-active", slideIndex === activeIndex);
+        });
+        counter.textContent = `${activeIndex + 1} / ${slides.length}`;
+        progress.style.width = `${((activeIndex + 1) / slides.length) * 100}%`;
+        history.replaceState(null, "", `#${activeIndex + 1}`);
+        pauseInactiveMedia();
+        slides[activeIndex].querySelectorAll("video[autoplay]").forEach((media) => {
+          media.play?.().catch(() => {});
+        });
+      }
+
+      function move(delta) {
+        showSlide(activeIndex + delta);
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen?.();
+        } else {
+          document.exitFullscreen?.();
+        }
+      }
+
+      document.querySelector('[data-action="prev"]').addEventListener("click", () => move(-1));
+      document.querySelector('[data-action="next"]').addEventListener("click", () => move(1));
+      document.querySelector('[data-action="fullscreen"]').addEventListener("click", toggleFullscreen);
+      document.querySelectorAll("[data-video-fullscreen]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const frame = button.closest(".media-frame");
+          const video = frame?.querySelector("video");
+          if (video?.requestFullscreen) {
+            video.requestFullscreen();
+          } else if (video?.webkitEnterFullscreen) {
+            video.webkitEnterFullscreen();
+          } else {
+            frame?.requestFullscreen?.();
+          }
+        });
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+          event.preventDefault();
+          move(1);
+        }
+        if (["ArrowLeft", "PageUp"].includes(event.key)) {
+          event.preventDefault();
+          move(-1);
+        }
+        if (event.key === "Home") showSlide(0);
+        if (event.key === "End") showSlide(slides.length - 1);
+        if (event.key.toLowerCase() === "f") toggleFullscreen();
+      });
+
+      function syncFromHash() {
+        const hashIndex = Number.parseInt(location.hash.replace("#", ""), 10) - 1;
+        showSlide(Number.isInteger(hashIndex) ? hashIndex : 0);
+      }
+
+      window.addEventListener("hashchange", syncFromHash);
+      syncFromHash();
+    </script>
+  </body>
+</html>
