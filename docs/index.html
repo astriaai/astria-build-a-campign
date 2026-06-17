@@ -168,21 +168,65 @@
 
       .hero-contact {
         display: inline-grid;
-        grid-template-columns: 110px minmax(0, 1fr);
-        gap: 20px;
+        grid-template-columns: 128px 88px minmax(0, 1fr);
+        gap: 14px;
         align-items: center;
-        max-width: 470px;
+        width: min(100%, 560px);
+        max-width: 560px;
         margin-top: 10px;
+      }
+
+      .qr-card {
+        display: grid;
+        gap: 6px;
+        justify-items: center;
+        color: rgba(0, 0, 0, 0.58);
+        font-size: 11px;
+        line-height: 1.08;
+        text-align: center;
+      }
+
+      .qr-card strong {
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .qr-card a {
+        color: #0f7f84;
+        text-decoration: none;
+      }
+
+      .qr-card--primary {
+        width: 128px;
+      }
+
+      .qr-card--secondary {
+        width: 88px;
+        opacity: 0.82;
+      }
+
+      .qr-card--secondary strong {
+        font-size: 10px;
+      }
+
+      .qr-card--secondary a {
+        font-size: 10px;
       }
 
       .hero-qr {
         display: block;
-        width: 110px;
-        height: 110px;
+        width: 100%;
+        aspect-ratio: 1;
         padding: 8px;
         border: 1px solid rgba(0, 0, 0, 0.14);
         border-radius: 8px;
         background: #fff;
+      }
+
+      .qr-card--secondary .hero-qr {
+        padding: 6px;
+        border-color: rgba(0, 0, 0, 0.1);
       }
 
       .hero-contact-text {
@@ -1317,13 +1361,22 @@
         }
 
         .hero-contact {
-          grid-template-columns: 82px minmax(0, 1fr);
+          grid-template-columns: 116px 86px;
           max-width: 100%;
+          justify-content: start;
+          align-items: start;
         }
 
-        .hero-qr {
-          width: 82px;
-          height: 82px;
+        .hero-contact-text {
+          grid-column: 1 / -1;
+        }
+
+        .qr-card--primary {
+          width: 116px;
+        }
+
+        .qr-card--secondary {
+          width: 86px;
         }
 
         .hero-video {
@@ -1345,12 +1398,20 @@
               <strong>Campaigns and lookbooks</strong>
             </h1>
             <p class="kicker">Making AI work with teams.</p>
-            <div class="hero-contact" aria-label="Contact and Oma link">
-              <img class="hero-qr" src="assets/astria-oma-qr.svg" alt="QR code for https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_1_cover">
+            <div class="hero-contact" aria-label="Contact and links">
+              <div class="qr-card qr-card--primary">
+                <img class="hero-qr" src="assets/astria-ecommerce-qr.svg" alt="QR code for https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_1_cover">
+                <strong>Campaigns</strong>
+                <a href="https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_1_cover">astria.ai/ecommerce</a>
+              </div>
+              <div class="qr-card qr-card--secondary">
+                <img class="hero-qr" src="assets/astria-oma-qr.svg" alt="QR code for https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_1_cover">
+                <strong>WomenAI &amp; Oma</strong>
+                <a href="https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_1_cover">astria.ai/p/oma</a>
+              </div>
               <p class="hero-contact-text">
                 <strong>Alon Burg</strong>
                 <a href="mailto:alon@astria.ai">alon@astria.ai</a>
-                <a href="https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_1_cover">astria.ai/p/oma</a>
               </p>
             </div>
           </div>
@@ -1631,12 +1692,20 @@
           <div class="thanks-stack">
             <h2 class="closing-title">Thank you</h2>
             <p class="thanks-question">Questions?</p>
-            <div class="hero-contact" aria-label="Contact">
-              <img class="hero-qr" src="assets/astria-oma-qr-closing.svg" alt="QR code for https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_13_closing">
+            <div class="hero-contact" aria-label="Contact and links">
+              <div class="qr-card qr-card--primary">
+                <img class="hero-qr" src="assets/astria-ecommerce-qr-closing.svg" alt="QR code for https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_11_closing">
+                <strong>Campaigns</strong>
+                <a href="https://www.astria.ai/ecommerce?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=ecommerce_campaigns_lookbook&amp;utm_content=slide_11_closing">astria.ai/ecommerce</a>
+              </div>
+              <div class="qr-card qr-card--secondary">
+                <img class="hero-qr" src="assets/astria-oma-qr-closing.svg" alt="QR code for https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_13_closing">
+                <strong>WomenAI &amp; Oma</strong>
+                <a href="https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_13_closing">astria.ai/p/oma</a>
+              </div>
               <p class="hero-contact-text">
                 <strong>Alon Burg</strong>
                 <a href="mailto:alon@astria.ai">alon@astria.ai</a>
-                <a href="https://www.astria.ai/p/oma?utm_source=presentation&amp;utm_medium=qr&amp;utm_campaign=women_ai_oma&amp;utm_content=slide_13_closing">astria.ai/p/oma</a>
               </p>
             </div>
           </div>
